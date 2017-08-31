@@ -62,7 +62,6 @@
                 permissionResult.then(resolve, reject);
             }
         }).then(function(permissionResult){
-                    console.log('permissionResult: ', permissionResult);
                     if(permissionResult !== 'granted'){
                         throw new Error('Permission not granted');
                     }
@@ -83,8 +82,6 @@
                     return serviceWorkerRegistration.pushManager.subscribe(subscribeOptions);
                 })
                 .then(function(pushSubscription){
-                    console.log('Received PushSubscription: ', JSON.stringify(pushSubscription));
-
                     // sending subscription to backend
                     sendSubscriptionToBackEnd(pushSubscription);
 
@@ -101,15 +98,14 @@
             meta: JSON.stringify(subscription),
             welcome_lang: "en"
         };
-        console.log('payload');
-        console.log(payload);
+
         return fetch('https://asroma.pushsm.com/api/push-tokens', {
             method: 'POST',
             headers: {
                 'X-Requested-With': 'XMLHttpRequest',
                 'Accept': 'application/vnd.notifications.v1+json',
                 'Content-Type': 'application/json',
-                'X-Push-Auth-Token': 'zxcccccccccccccz',
+                'X-Push-Auth-Token': 'yolo',
                 'X-Client-Language': navigator.language.substring(0, 2)
             },
             body: JSON.stringify(payload)
