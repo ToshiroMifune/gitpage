@@ -18,31 +18,32 @@ function handlePush(event) {
       dir: 'auto',
       actions: [
         {
-          action: 'i-dont-watch-porn',
-          title: 'I don\'t watch porn :('
+          action: 'watch',
+          title: 'WATCH!',
         },
         {
-          action: 'watch-the-porn',
-          title: 'WATCH NOW !',
+          action: 'no-thank',
+          title: 'No thanks'
         }
       ]
     };
     return self.registration.showNotification(receivedData.title, options);
   }
-
 }
 
 self.addEventListener('notificationclick', function(event){
+  const receivedData = event.data.json();
   if(!event.action){
     // normal notification, without actions defined, just redirect to url passed
+    clients.openWindow(receivedData.url);
     return;
   }
 
   switch (event.action) {
-    case 'watch-the-porn':
-      clients.openWindow('https://www.youtube.com/watch?v=e3B3OAEiYF8');
+    case 'watch':
+      clients.openWindow(receivedData.url);
       break;
-    case 'i-dont-watch-porn':
+    case 'no-thanks':
       break;
     default:
       // console.log(`Unknown action clicked: '${event.action}'`);
