@@ -16,37 +16,38 @@ function handlePush(event) {
       icon: receivedData.icon,
       image: 'img/testpushimage.jpg',
       dir: 'auto',
+      requireInteraction: true,
       actions: [
         {
           action: 'watch',
-          title: 'WATCH!',
+          title: 'WATCH NOW!'
         },
         {
-          action: 'no-thank',
-          title: 'No thanks'
+          action: 'no-thanks',
+          title: 'I dont watch porn :('
         }
-      ]
+      ],
+      passedData: receivedData
     };
     return self.registration.showNotification(receivedData.title, options);
   }
 }
 
 self.addEventListener('notificationclick', function(event){
-  const receivedData = event.data.json();
+  const receivedData = event.notification;
   if(!event.action){
     // normal notification, without actions defined, just redirect to url passed
-    clients.openWindow(receivedData.url);
     return;
   }
 
   switch (event.action) {
     case 'watch':
-      clients.openWindow(receivedData.url);
+      clients.openWindow('https://www.youtube.com/watch?v=p5PVPoN3gyg');
       break;
     case 'no-thanks':
       break;
     default:
-      // console.log(`Unknown action clicked: '${event.action}'`);
+      console.log(`Unknown action clicked: '${event.action}'`);
       break;
   }
   event.notification.close();
