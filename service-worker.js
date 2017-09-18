@@ -14,7 +14,8 @@ function handlePush(event) {
     const options = {
       body: receivedData.message,
       icon: receivedData.icon,
-      image: 'img/testpushimage.jpg',
+      //image: 'img/testpushimage.jpg',
+      image: 'https://i.pinimg.com/originals/e9/c0/59/e9c05984ae07ea7a77ab72bc68a3fa63.gif',
       dir: 'auto',
       requireInteraction: true,
       actions: [
